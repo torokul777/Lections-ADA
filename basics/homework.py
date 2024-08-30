@@ -102,29 +102,29 @@
 # # # Ответ: Данной операции нет в системе
 
 
-# # # while True:
-# # #     a = int(input('Введите 1-ое число:'))
-# # #     b = int(input('Ввелите 2-ое число:'))
-# # #     operasia = input('Выберите операцию +,-,*,/,%,//,**')
-# # #     if operasia == '+':
-# # #         print(a + b)
-# # #     elif operasia == "-":
-# # #         print(a - b)
-# # #     elif operasia == '*':
-# # #         print(a * b)
-# # #     elif operasia == "/":
-# # #         print(a / b)
-# # #     elif operasia == "%":
-# # #         print(a % b)
-# # #     elif operasia == '//':
-# # #         print (a // b)
-# # #     elif operasia =='**':
-# # #         print(a ** b)
-# # #     else:
-# # #         print('Данной операции нет в системе!')
-# # #     prodoljenie = input(('Хотите продолжить(yes/no?)'))
-# # #     if prodoljenie.lower() != 'yes':    
-# # #         break
+while True:
+    a = int(input('Введите 1-ое число:'))
+    b = int(input('Ввелите 2-ое число:'))
+    operasia = input('Выберите операцию +,-,*,/,%,//,**')
+    if operasia == '+':
+        print(a + b)
+    elif operasia == "-":
+        print(a - b)
+    elif operasia == '*':
+        print(a * b)
+    elif operasia == "/":
+        print(a / b)
+    elif operasia == "%":
+        print(a % b)
+    elif operasia == '//':
+        print (a // b)
+    elif operasia =='**':
+        print(a ** b)
+    else:
+        print('Данной операции нет в системе!')
+    prodoljenie = input(('Хотите продолжить(yes/no?)'))
+    if prodoljenie.lower() != 'yes':    
+        break
 
 # # '========home work================'
 # # '1 exercise'
@@ -366,6 +366,12 @@
 
 # except ValueError as e:
 #     print(f"Ошибка: {e}")
-
-
+# login = input('Введите свой логин:')
+# password = input('Введите свой пароль:')
+# if login == type(str):
+#     print('Вы успшено ввели логин!')
+# elif password == type(str or int):
+#     print('Вы успешно ввели свой пароль!')
+# print(f"Ваш логин: {login}")
+# print(f"Ваш пароль: {password}")
 

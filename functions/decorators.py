@@ -47,20 +47,59 @@
 # hello()
 
 
-import requests
-from time import time
+# import requests
+# from time import time
 
-def benchmark(func):
-    def wrapper(*args,**kwargs):
-        start = time()
-        func()
-        end = time()
-        time_exec = end - start
-        print(f"Время выполнения {time_exec} сукунд")
-    return wrapper
-@benchmark
+# def benchmark(func):
+#     def wrapper(*args,**kwargs):
+#         start = time()
+#         func()
+#         end = time()
+#         time_exec = end - start
+#         print(f"Время выполнения {time_exec} сукунд")
+#     return wrapper
+# @benchmark
 
-def fetch_webpage() -> None:
-    webpage = requests.get('https://google.com')
+# def fetch_webpage() -> None:
+#     webpage = requests.get('https://google.com')
 
-fetch_webpage()
+# fetch_webpage()
+class RadioMixin:
+    def play_music(self, song_name):
+        return f'Название: {song_name}'
+
+class Auto(RadioMixin):
+    def __init__(self, model):
+        self.model = model
+
+    def info(self):
+        return f'Модель машины: {self.model}'
+
+class Boat(RadioMixin):
+    def __init__(self, model):
+        self.model = model
+
+    def info(self):
+        return f'Модель корабля: {self.model}'
+
+class Amphibian(RadioMixin):
+    def __init__(self, type):
+        self.type = type
+
+    def info(self):
+        return f'Тип амфибии: {self.type}'
+
+
+auto = Auto('BMW M5')
+boat = Boat('Yamaha')
+amphibian = Amphibian('Gibbs Quadski')
+
+
+print(auto.info())         
+print(boat.info())         
+print(amphibian.info())   
+
+
+print(auto.play_music('Despacito'))     
+print(boat.play_music('Blinding Lights'))
+print(amphibian.play_music('Shape of You'))

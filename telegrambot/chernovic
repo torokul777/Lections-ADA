@@ -1,0 +1,112 @@
+import requests
+from bs4 import BeautifulSoup
+
+def get_news():
+    url = 'https://kaktus.media/' 
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'lxml')
+
+    news_list = soup.find_all('div', class_='news-item')  # Уточните класс, если нужно
+    news = []
+
+    for item in news_list[:20]:  # Берем первые 20 новостей
+        title = item.find('h2').get_text(strip=True)
+        link = item.find('a')['href']
+        description = item.find('p').get_text(strip=True) if item.find('p') else 'No description'
+        photo = item.find('img')['src'] if item.find('img') else 'No image'
+        news.append({
+            'title': title,
+            'link': link,
+            'description': description,
+            'photo': photo
+        })
+
+    return news
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from telegram import Update, ParseMode
+from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext
+from parser import get_news
+import logging
+
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
+news_data = []
+
+def start(update: Update, context: CallbackContext) -> None:
+    global news_data
+    news_data = get_news()
+    
+    keyboard = [[f'{i + 1}. {news["title"]}'] for i, news in enumerate(news_data)]
+    keyboard.append(['Quit'])
+
+    reply_markup = {'keyboard': keyboard, 'resize_keyboard': True, 'one_time_keyboard': True}
+    update.message.reply_text('Выберите новость:', reply_markup=reply_markup)
+
+def handle_message(update: Update, context: CallbackContext) -> None:
+    global news_data
+    text = update.message.text
+
+    if text == 'Quit':
+        update.message.reply_text('До свидания')
+        return
+
+    try:
+        index = int(text) - 1
+        if 0 <= index < len(news_data):
+            news = news_data[index]
+            update.message.reply_text(f"Title: {news['title']}\n\nLink: {news['link']}\n\nDescription: {news['description']}\n\nPhoto: {news['photo']}", parse_mode=ParseMode.MARKDOWN)
+        else:
+            update.message.reply_text('Некорректный выбор. Попробуйте снова.')
+    except ValueError:
+        update.message.reply_text('Некорректный формат. Введите номер новости или нажмите кнопку Quit.')
+
+def main():
+    TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+    
+    updater = Updater(TOKEN)
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler('start', start))
+    dispatcher.add_handler(MessageHandler(None, handle_message))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
+

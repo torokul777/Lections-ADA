@@ -108,8 +108,11 @@ ctrl + d - выход из python shell
 # print(divmod(17,3))
 
 
-w1 = int(input('Введи 1-ое число:'))
-w2 = int(input('Введи 2-ое чсило:'))
-print(w1+w2)
+# w1 = int(input('Введи 1-ое число:'))
+# w2 = int(input('Введи 2-ое чсило:'))
+# print(w1+w2)
+name = "Alice"
+age = 30
+message = f"Name: {name}, Age: {age}"
 
 
